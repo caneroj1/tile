@@ -89,3 +89,42 @@ subTiles (Tile (Z 1, X 1, Y 0))
 --  ]
 
 ```
+
+### Parent tiles
+
+Get the parent of a given tile.
+
+```haskell
+
+parentTile (Tile (Z 1, X 1, Y 0))
+-- returns Just (Tile (Z 0, X 0, Y 0))
+
+```
+
+### Tile Bounds
+
+Convert a tile into a bounding box.
+
+#### Oriented from the SW
+
+``` haskell
+
+tileToBounds SW (Tile (Z 8, X 75, Y 96))
+-- returns TileBounds SW (LngLat (Lng (-74.53125), Lat 39.90973623453718))
+--                       (LngLat (Lng (-73.125), Lat 40.97989806962013))
+
+```
+
+#### Oriented from the NW
+
+``` haskell
+
+tileToBounds NW (Tile (Z 8, X 75, Y 96))
+-- returns TileBounds SW (LngLat (Lng (-74.53125), Lat 40.97989806962013))
+--                       (LngLat (Lng (-73.125), Lat 39.90973623453718))
+
+```
+
+## Contributing
+
+Contributions are welcome!
