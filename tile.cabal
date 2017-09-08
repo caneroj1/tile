@@ -1,5 +1,5 @@
 name:                tile
-version:             0.2.0.0
+version:             0.3.0.0
 synopsis:            Slippy map tile functionality.
 description:         Tile/lonlat conversion utilities for slippy maps.
 homepage:            https://github.com/caneroj1/tile#readme
