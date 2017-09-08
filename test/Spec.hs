@@ -19,6 +19,7 @@ main = void $ runTestTT $ TestList [
   , TestCase parentOfT110
   , TestCase parentOfT000
   , TestCase tmsConversion
+  , TestCase tilesInBBOX
   ]
 
 convertT000ToPx :: Assertion
@@ -77,3 +78,31 @@ validateMkTile =
 tmsConversion :: Assertion
 tmsConversion =
   Tile (Z 8, X 75, Y 159) @=? flipY (Tile (Z 8, X 75, Y 96))
+
+tilesInBBOX :: Assertion
+tilesInBBOX =
+  [
+    Tile (Z 15, X 9636, Y 12332)
+  , Tile (Z 15, X 9636, Y 12333)
+  , Tile (Z 15, X 9636, Y 12334)
+  , Tile (Z 15, X 9636, Y 12335)
+  , Tile (Z 15, X 9637, Y 12332)
+  , Tile (Z 15, X 9637, Y 12333)
+  , Tile (Z 15, X 9637, Y 12334)
+  , Tile (Z 15, X 9637, Y 12335)
+  , Tile (Z 15, X 9638, Y 12332)
+  , Tile (Z 15, X 9638, Y 12333)
+  , Tile (Z 15, X 9638, Y 12334)
+  , Tile (Z 15, X 9638, Y 12335)
+  , Tile (Z 15, X 9639, Y 12332)
+  , Tile (Z 15, X 9639, Y 12333)
+  , Tile (Z 15, X 9639, Y 12334)
+  , Tile (Z 15, X 9639, Y 12335)
+  , Tile (Z 15, X 9640, Y 12332)
+  , Tile (Z 15, X 9640, Y 12333)
+  , Tile (Z 15, X 9640, Y 12334)
+  , Tile (Z 15, X 9640, Y 12335)
+  ] @=? tilesInBounds NW (Z 15) (ll1, ll2)
+  where ll1 = LngLat (Lng (-74.13451064965257), Lat 40.60668448525735)
+        ll2 = LngLat (Lng (-74.08404221265933), Lat 40.58875358944036)
+

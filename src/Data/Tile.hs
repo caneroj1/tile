@@ -37,6 +37,7 @@ module Data.Tile
 , subTiles
 , parentTile
 , mkTile
+, tilesInBounds
 -- ** Conversions
 -- *** To Pixel
 , tileToPixel
@@ -203,6 +204,17 @@ parentTile (Tile (Z z, X x, Y y))
 -- | Given a 'Tile', flip its y-coordinate according to the rules of TMS.
 flipY :: Tile -> Tile
 flipY (Tile (z, x, Y y)) = Tile (z, x, Y $ maxTileIndex z - y)
+
+-- | Given a 'BoxOrigin', a 'Z', and a pair of 'LngLat's, return a list of all
+-- tiles touching or within the bounding box.
+tilesInBounds :: BoxOrigin -> Z -> (LngLat, LngLat) -> [Tile]
+tilesInBounds bo z ll@(LngLat (lng1, lat1), LngLat (lng2, lat2)) =
+  let (ll1, ll2) = normalizeLLs bo
+      (Tile (_, X x1, Y y1)) = lngLatToTile z ll1
+      (Tile (_, X x2, Y y2)) = lngLatToTile z ll2
+    in [Tile (z, X x, Y y) | x <- [x1..x2], y <- [y1..y2]]
+  where normalizeLLs SW = (LngLat (lng1, lat2), LngLat (lng2, lat1))
+        normalizeLLs NW = ll
 
 clip :: Z -> Pixel -> Pixel
 clip z (Pixel (Px x, Py y)) = Pixel $ bimap (Px . clip' pixels) (Py . clip' pixels) (x, y)
